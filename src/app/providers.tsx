@@ -44,6 +44,7 @@ export function Providers(props: { children: React.ReactNode }) {
   const [queryClient] = React.useState(
     () => new QueryClient({ defaultOptions: { queries: { retry: false } } }),
   );
+
   const [isClient, setIsClient] = React.useState(false);
 
   React.useEffect(() => {
@@ -51,6 +52,7 @@ export function Providers(props: { children: React.ReactNode }) {
   }, []);
 
   if (!isClient) {
+    // This fixes hydration errors
     return null;
   }
 

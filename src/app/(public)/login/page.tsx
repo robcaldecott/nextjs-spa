@@ -20,7 +20,7 @@ import Cookies from "js-cookie";
 import { AlertCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-function LoginPage() {
+export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const mutation = useMutation<
@@ -102,14 +102,5 @@ function LoginPage() {
         )}
       </Card>
     </form>
-  );
-}
-
-export default function Page() {
-  return (
-    // https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
-    <React.Suspense>
-      <LoginPage />
-    </React.Suspense>
   );
 }

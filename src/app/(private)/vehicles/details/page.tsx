@@ -1,5 +1,6 @@
 "use client";
 
+import * as React from "react";
 import { deleteVehicle, getVehicle } from "@/api";
 import {
   AlertDialog,
@@ -89,7 +90,7 @@ function Detail(props: { label: React.ReactNode; value: React.ReactNode }) {
   );
 }
 
-export default function Details() {
+export default function DetailsPage() {
   const searchParams = useSearchParams();
   const id = searchParams.get("id") || "";
 
