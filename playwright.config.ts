@@ -42,7 +42,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     // command: "npm run dev",
-    command: "npm run dev:playwright -- --port 3001",
+    command: "npm run dev:playwright -- -p 3001",
     port: 3001,
     reuseExistingServer: !process.env.CI,
   },

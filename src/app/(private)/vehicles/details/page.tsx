@@ -29,8 +29,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/card";
+import { ErrorPage } from "@/components/error-page";
 import { LoadingButton } from "@/components/loading-button";
 import { Separator } from "@/components/separator";
+import { Skeleton } from "@/components/skeleton";
 import { getColorName, getWebColor } from "@/lib/color";
 import { formatCurrency, formatNumber } from "@/lib/intl";
 import { fuelLabels } from "@/lib/labels";
@@ -100,9 +102,17 @@ export default function DetailsPage() {
     enabled: Boolean(id),
   });
 
-  // TDDO: loading and error UI
-  if (query.isPending || query.isError) {
-    return null;
+  if (query.isPending) {
+    return (
+      <div className="space-y-6">
+        <Skeleton className="h-5 w-48" />
+        <Skeleton className="h-[400px] w-full" />
+      </div>
+    );
+  }
+
+  if (query.isError) {
+    return <ErrorPage message={query.error.message} onRetry={query.refetch} />;
   }
 
   return (

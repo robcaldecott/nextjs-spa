@@ -40,30 +40,31 @@ function MockServiceWorker(props: { children: React.ReactNode }) {
   return loaded ? props.children : null;
 }
 
-export function Providers(props: { children: React.ReactNode }) {
-  const [queryClient] = React.useState(
-    () => new QueryClient({ defaultOptions: { queries: { retry: false } } }),
-  );
-
+function ClientProvider(props: { children: React.ReactNode }) {
   const [isClient, setIsClient] = React.useState(false);
 
   React.useEffect(() => {
     setIsClient(true);
   }, []);
 
-  if (!isClient) {
-    // This fixes hydration errors
-    return null;
-  }
+  return isClient ? props.children : null;
+}
+
+export function Providers(props: { children: React.ReactNode }) {
+  const [queryClient] = React.useState(
+    () => new QueryClient({ defaultOptions: { queries: { retry: false } } }),
+  );
 
   return (
-    <MockServiceWorker>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          {props.children}
-          <Toaster />
-        </ThemeProvider>
-      </QueryClientProvider>
-    </MockServiceWorker>
+    <ClientProvider>
+      <MockServiceWorker>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
+            {props.children}
+            <Toaster />
+          </ThemeProvider>
+        </QueryClientProvider>
+      </MockServiceWorker>
+    </ClientProvider>
   );
 }

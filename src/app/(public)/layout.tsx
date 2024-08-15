@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import Cookies from "js-cookie";
 
 export default function PublicLayout(props: { children: React.ReactNode }) {
   return (
