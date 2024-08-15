@@ -1,9 +1,9 @@
 "use client";
 
 import * as React from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/toaster";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function MockServiceWorker(props: { children: React.ReactNode }) {
   const initialised = React.useRef(false);

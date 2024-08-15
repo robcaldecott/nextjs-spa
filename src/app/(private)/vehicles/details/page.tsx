@@ -2,6 +2,9 @@
 
 import * as React from "react";
 import { deleteVehicle, getVehicle } from "@/api";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useRouter, useSearchParams } from "next/navigation";
+import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -36,9 +39,6 @@ import { Skeleton } from "@/components/skeleton";
 import { getColorName, getWebColor } from "@/lib/color";
 import { formatCurrency, formatNumber } from "@/lib/intl";
 import { fuelLabels } from "@/lib/labels";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
-import { toast } from "sonner";
 
 function DeleteButton(props: { vehicleId: string }) {
   const router = useRouter();

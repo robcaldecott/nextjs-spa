@@ -4,7 +4,12 @@ const config = {
     "@ianvs/prettier-plugin-sort-imports",
     "prettier-plugin-tailwindcss",
   ],
-  importOrder: ["^react", "<THIRD_PARTY_MODULES>", "^[.]"],
+  importOrder: [
+    "^react",
+    "<THIRD_PARTY_MODULES>",
+    "^(@/components|@/app|@/lib|@/mocks)(/.*)$",
+    "^[.]",
+  ],
   tailwindFunctions: ["clsx"],
 };
 

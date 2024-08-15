@@ -1,7 +1,7 @@
-import { Button } from "@/components/button";
-import { Card } from "@/components/card";
 import { CircleX } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/button";
+import { Card } from "@/components/card";
 
 export default function NotFound() {
   return (

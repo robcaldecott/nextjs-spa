@@ -2,6 +2,10 @@
 
 import * as React from "react";
 import { getVehicles } from "@/api";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { Info, Search } from "lucide-react";
+import Link from "next/link";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Badge } from "@/components/badge";
 import {
   Breadcrumb,
@@ -36,10 +40,6 @@ import {
 import { getWebColor } from "@/lib/color";
 import { formatCurrency } from "@/lib/intl";
 import { fuelLabels } from "@/lib/labels";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { Info, Search } from "lucide-react";
-import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 export default function VehiclesPage() {
   const pathname = usePathname();

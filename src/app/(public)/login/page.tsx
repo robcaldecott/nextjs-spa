@@ -1,7 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { useForm } from "react-hook-form";
 import { login } from "@/api";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import Cookies from "js-cookie";
+import { AlertCircle } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { z } from "zod";
 import { Alert, AlertDescription, AlertTitle } from "@/components/alert";
 import {
   Card,
@@ -15,41 +22,41 @@ import { FormError } from "@/components/form-error";
 import { Input } from "@/components/input";
 import { Label } from "@/components/label";
 import { LoadingButton } from "@/components/loading-button";
-import { useMutation } from "@tanstack/react-query";
-import Cookies from "js-cookie";
-import { AlertCircle } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+
+const schema = z.object({
+  email: z
+    .string()
+    .min(1, "Email is required")
+    .email({ message: "Please enter a valid email address" }),
+  password: z.string().min(1, "Password is required"),
+});
+
+type LoginFormData = z.infer<typeof schema>;
 
 export default function LoginPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const mutation = useMutation<
-    { token: string },
-    Error,
-    { email: string; password: string }
-  >({
+  const mutation = useMutation<{ token: string }, Error, LoginFormData>({
     mutationFn: (variables) => login(variables.email, variables.password),
   });
 
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<LoginFormData>({ resolver: zodResolver(schema) });
+
   return (
     <form
-      onSubmit={(event) => {
-        event.preventDefault();
-
-        mutation.mutate(
-          {
-            email: event.currentTarget.email.value,
-            password: event.currentTarget.password.value,
+      onSubmit={handleSubmit((data) => {
+        mutation.mutate(data, {
+          onSuccess: (data) => {
+            Cookies.set("token", data.token);
+            // Redirect
+            router.push(searchParams.get("to") ?? "/");
           },
-          {
-            onSuccess: (data) => {
-              // Redirect to the home page
-              Cookies.set("token", data.token);
-              router.push(searchParams.get("to") ?? "/");
-            },
-          },
-        );
-      }}
+        });
+      })}
     >
       <Card className="m-6 w-full max-w-sm">
         <CardHeader>
@@ -63,22 +70,24 @@ export default function LoginPage() {
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
-              name="email"
               type="text"
               defaultValue="jane.doe@company.com"
               inputMode="email"
-              required
+              {...register("email")}
             />
+            {errors.email && <FormError>{errors.email.message}</FormError>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
             <Input
               id="password"
-              name="password"
               type="password"
               defaultValue="verystrongpassword"
-              required
+              {...register("password")}
             />
+            {errors.password && (
+              <FormError>{errors.password.message}</FormError>
+            )}
           </div>
         </CardContent>
         <CardFooter>

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { getChartData, getSummary } from "@/api";
-import { Card } from "@/components/card";
+import { useQuery } from "@tanstack/react-query";
 import { ErrorPage } from "@/components/error-page";
 import { FuelChart } from "@/components/fuel-chart";
 import { OemChart } from "@/components/oem-chart";
@@ -10,8 +10,6 @@ import { RegistrationYearChart } from "@/components/registration-year-chart";
 import { Skeleton } from "@/components/skeleton";
 import { Statistic } from "@/components/statistic";
 import { formatCurrency, formatNumber } from "@/lib/intl";
-import { useQuery } from "@tanstack/react-query";
-import { AlertCircle, Loader2 } from "lucide-react";
 
 function Content(props: {
   count: React.ReactNode;
