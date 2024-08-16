@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,6 +14,8 @@ import {
 } from "./dropdown-menu";
 
 export function UserAvatar(props: { user: User }) {
+  const queryClient = useQueryClient();
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -42,6 +45,7 @@ export function UserAvatar(props: { user: User }) {
             href="/login"
             onClick={() => {
               Cookies.remove("token");
+              queryClient.clear();
             }}
           >
             Log out

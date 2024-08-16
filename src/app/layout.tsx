@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import { Providers } from "./providers";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "Vehicle Manager",
@@ -15,8 +15,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
+      <body className="min-h-screen bg-accent/40 font-sans text-foreground dark:bg-background/95">
         <Providers>{children}</Providers>
       </body>
     </html>

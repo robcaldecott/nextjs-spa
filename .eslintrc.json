@@ -2,7 +2,8 @@
   "extends": [
     "next/core-web-vitals",
     "plugin:tailwindcss/recommended",
-    "plugin:@tanstack/eslint-plugin-query/recommended"
+    "plugin:@tanstack/eslint-plugin-query/recommended",
+    "plugin:storybook/recommended"
   ],
   "settings": {
     "tailwindcss": {

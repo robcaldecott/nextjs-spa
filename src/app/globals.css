@@ -63,8 +63,4 @@
   * {
     @apply border-border;
   }
-
-  body {
-    @apply min-h-screen bg-accent/40 font-sans text-foreground dark:bg-background/95;
-  }
 }
