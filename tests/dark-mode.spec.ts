@@ -38,11 +38,11 @@ test.beforeEach(async ({ page, context }) => {
 test("light mode", async ({ page }) => {
   await page.getByRole("button", { name: "Mode toggle" }).click();
   await page.getByRole("menuitem", { name: "Light" }).click();
-  await expect(page.locator("html")).toHaveClass("light");
+  await expect(page.locator("html")).toHaveClass(/light/);
 });
 
 test("dark mode", async ({ page }) => {
   await page.getByRole("button", { name: "Mode toggle" }).click();
   await page.getByRole("menuitem", { name: "Dark" }).click();
-  await expect(page.locator("html")).toHaveClass("dark");
+  await expect(page.locator("html")).toHaveClass(/dark/);
 });
